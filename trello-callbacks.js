@@ -121,3 +121,32 @@ function getCards(listId, callback) {
 // Task 1 board -> lists -> cards for list qwsa221
 // Task 2 board -> lists -> cards for list qwsa221 and cards for list jwkh245 simultaneously
 // Task 3 board -> lists -> cards for all lists simultaneously
+
+// let boardDetails = null;
+// let list = null;
+
+// function getBoardDetails(board){
+//   boardDetails = board;
+// }
+
+// function getLists(listDetails){
+//   list = listDetails;
+// }
+
+// getBoard(getBoardDetails);
+// setTimeout(()=>{
+//   let boardId = boardDetails.id;
+//   getLists(boardId,getLists);
+//   setTimeout(()=>{
+//    for(let index=0;index){
+
+//    }
+//   },1000);
+
+// },1000);
+
+
+
+
+
+
