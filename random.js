@@ -1,30 +1,30 @@
-// function fetchRandomNumbers(callback) {
-//     console.log('Fetching number...');
-//     setTimeout(() => {
-//         let randomNum = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
-//         console.log('Received random number:', randomNum);
-//         callback(randomNum);
-//     }, (Math.floor(Math.random() * (5)) + 1) * 1000);
-// }
+function fetchRandomNumbers(callback) {
+    console.log('Fetching number...');
+    setTimeout(() => {
+        let randomNum = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+        console.log('Received random number:', randomNum);
+        callback(randomNum);
+    }, (Math.floor(Math.random() * (5)) + 1) * 1000);
+}
 
-// function fetchRandomString() {
-//     console.log('Fetching string...');
-//     setTimeout(() => {
-//         let result = '';
-//         let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//         let charactersLength = characters.length;
-//         for (let i = 0; i < 5; i++) {
-//             result += characters.charAt(Math.floor(Math.random() * charactersLength));
-//         }
-//         console.log('Received random string:', result);
-//         callback(result);
-//     }, (Math.floor(Math.random() * (5)) + 1) * 1000);
-// }
+function fetchRandomString() {
+    console.log('Fetching string...');
+    setTimeout(() => {
+        let result = '';
+        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let charactersLength = characters.length;
+        for (let i = 0; i < 5; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        console.log('Received random string:', result);
+        callback(result);
+    }, (Math.floor(Math.random() * (5)) + 1) * 1000);
+}
 
 
 
-// fetchRandomNumbers((randomNum) => console.log(randomNum))
-// fetchRandomString((randomStr) => console.log(randomStr))
+fetchRandomNumbers((randomNum) => console.log(randomNum))
+fetchRandomString((randomStr) => console.log(randomStr))
 
 // Refactoring the above functions using Promises 
 
@@ -119,12 +119,74 @@ Promise.all(promises)
     .then((sumOfEach) => {
         let sum = 0;
 
-        for (let index = 0; index < 10; index++)
+        for (let index = 0; index < 10; index++) {
             sum = sum + sumOfEach[index];
+        }
 
         console.log(`Sum of ten random numbers : ${sum}`);
     })
     .catch(() => {
         console.log('Error occurred while adding ten random numbers');
     });
+
+
+//Task 1 using async/await
+
+async function fetchRandNum() {
+    const randNum = await fetchRandomNumbersPromise();
+    console.log(randNum);
+}
+
+async function fetchRandStr() {
+    const randStr = await fetchRandomStringPromise();
+    console.log(randStr);
+}
+
+fetchRandNum();
+fetchRandStr();
+
+
+//Task 2 using async/await
+
+async function sumOfRandNum() {
+    let sum = 0;
+    let randNum = await fetchRandomNumbersPromise();
+    sum = sum + randNum;
+    console.log(sum);
+    randNum = await fetchRandomNumbersPromise();
+    sum = sum + randNum;
+    console.log(sum);
+}
+
+sumOfRandNum();
+
+// Task 3 using async/await
+
+async function concatRandNumStr() {
+    let randNumStrArray = await Promise.all([fetchRandomNumbersPromise(), fetchRandomStringPromise()]);
+    console.log(randNumStrArray[0] + randNumStrArray[1]);
+}
+
+concatRandNumStr();
+
+// Task 4 using async/await
+
+async function sumOfTenRandNumbers() {
+    let promises = []
+    let sum = 0;
+
+    for (let index = 0; index < 10; index++) {
+        promises.push(fetchRandomNumbersPromise());
+    }
+
+    let sumOfEach = await Promise.all(promises);
+
+    for (let index = 0; index < 10; index++) {
+        sum = sum + sumOfEach[index];
+    }
+
+    console.log(sum);
+}
+
+sumOfTenRandNumbers();
 
