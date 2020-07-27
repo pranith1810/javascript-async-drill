@@ -1,7 +1,7 @@
 function getBoard() {
   return new Promise((resolve, reject) => {
     console.log('Fetching board...');
-    setTimeout(function() {
+    setTimeout(function () {
       let board = {
         id: "def453ed",
         name: "Thanos"
@@ -15,7 +15,7 @@ function getBoard() {
 function getLists(boardId) {
   return new Promise((resolve, reject) => {
     console.log(`Fetching lists for board id ${boardId}...`);
-    setTimeout(function() {
+    setTimeout(function () {
       let lists = {
         def453ed: [
           {
@@ -53,7 +53,7 @@ function getLists(boardId) {
 function getCards(listId) {
   return new Promise((resolve, reject) => {
     console.log(`Fetching cards for list id ${listId}...`);
-    setTimeout(function() {
+    setTimeout(function () {
       let cards = {
         qwsa221: [
           {
@@ -127,3 +127,83 @@ function getCards(listId) {
 // Task 1 board -> lists -> cards for list qwsa221
 // Task 2 board -> lists -> cards for list qwsa221 and cards for list jwkh245 simultaneously
 // Task 3 board -> lists -> cards for all lists simultaneously
+
+//Task 1
+getBoard()
+  .then((board) => {
+    return getLists(board.id);
+  })
+  .then((list) => {
+    for (let index = 0; index < list.length; index++) {
+      if (list[index].id === 'qwsa221')
+        return getCards(list[index].id);
+    }
+  })
+  .then((cards) => {
+    console.log(cards);
+  })
+  .catch(() => {
+    console.log("Error occurred while getting the cards for list id : qwsa221");
+  });
+
+// Task 2
+getBoard()
+  .then((board) => {
+    return getLists(board.id);
+  })
+  .then((list) => {
+    let promises = [];
+    for (let index = 0; index < list.length; index++) {
+      if (list[index].id === 'qwsa221' || list[index].id === 'jwkh245')
+        promises.push(getCards(list[index].id));
+    }
+    return Promise.all(promises);
+  })
+  .then((cards) => {
+    for (let index = 0; index < cards.length; index++) {
+      console.log(cards[index]);
+    }
+  })
+  .catch(() => {
+    console.log("Error occurred while getting the cards for list id's jwkh245 and qwsa221");
+  });
+
+
+//Task 3
+getBoard()
+  .then((board) => {
+    return getLists(board.id);
+  })
+  .then((list) => {
+    let promises = [];
+    for (let index = 0; index < list.length; index++) {
+      promises.push(getCards(list[index].id));
+    }
+    return Promise.all(promises);
+  })
+  .then((cards) => {
+    for (let index = 0; index < cards.length; index++) {
+      console.log(cards[index]);
+    }
+  })
+  .catch(() => {
+    console.log("Error occurred while getting the cards for all lists");
+  });
+
+
+//Task 3 without Promise.all()
+// getBoard()
+// .then((board)=>{
+//  return getLists(board.id);
+// })
+// .then((list)=>{
+//    for(let index=0;index<list.length;index++){
+//       getCards(list[index].id)
+//       .then((card)=>{
+//         console.log(card);
+//       });
+//   }
+// })
+// .catch(()=>{
+//   console.log("Error occurred while getting the cards for all lists");
+// });
