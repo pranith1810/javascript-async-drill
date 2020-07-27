@@ -1,6 +1,6 @@
 function getBoard(callback) {
   console.log('Fetching board...');
-  return setTimeout(function() {
+  return setTimeout(function () {
     let board = {
       id: "def453ed",
       name: "Thanos"
@@ -12,7 +12,7 @@ function getBoard(callback) {
 
 function getLists(boardId, callback) {
   console.log(`Fetching lists for board id ${boardId}...`);
-  return setTimeout(function() {
+  return setTimeout(function () {
     let lists = {
       def453ed: [
         {
@@ -48,7 +48,7 @@ function getLists(boardId, callback) {
 
 function getCards(listId, callback) {
   console.log(`Fetching cards for list id ${listId}...`);
-  return setTimeout(function() {
+  return setTimeout(function () {
     let cards = {
       qwsa221: [
         {
@@ -122,31 +122,57 @@ function getCards(listId, callback) {
 // Task 2 board -> lists -> cards for list qwsa221 and cards for list jwkh245 simultaneously
 // Task 3 board -> lists -> cards for all lists simultaneously
 
-// let boardDetails = null;
-// let list = null;
+//Task 1
+const getBoardId = (board) => {
+  getLists(board.id, getListId);
+}
 
-// function getBoardDetails(board){
-//   boardDetails = board;
-// }
+const getListId = (list) => {
+  for (index = 0; index < list.length; index++) {
+    if (list[index].id === 'qwsa221') {
+      getCards(list[index].id, getCardsFromId);
+    }
+  }
+}
 
-// function getLists(listDetails){
-//   list = listDetails;
-// }
+const getCardsFromId = (card) => {
+  console.log(card);
+}
 
-// getBoard(getBoardDetails);
-// setTimeout(()=>{
-//   let boardId = boardDetails.id;
-//   getLists(boardId,getLists);
-//   setTimeout(()=>{
-//    for(let index=0;index){
+getBoard(getBoardId);
 
-//    }
-//   },1000);
+//Task 2
+const getBoardId2 = (board) => {
+  getLists(board.id, getListId2);
+}
 
-// },1000);
+const getListId2 = (list) => {
+  for (index = 0; index < list.length; index++) {
+    if (list[index].id === 'qwsa221' || list[index].id === 'jwkh245')
+      getCards(list[index].id, getCardsFromId2);
+  }
+}
 
+const getCardsFromId2 = (card) => {
+  console.log(card);
+}
 
+getBoard(getBoardId2);
 
+//Task 3
+const getBoardId3 = (board) => {
+  getLists(board.id, getListId3);
+}
 
+const getListId3 = (list) => {
+  for (index = 0; index < list.length; index++) {
+    getCards(list[index].id, getCardsFromId3);
+  }
+}
 
+const getCardsFromId3 = (card) => {
+  console.log(card);
+}
+
+getBoard(getBoardId3);
 
