@@ -55,7 +55,10 @@ async function userDataSerial() {
 
 async function userDataParallel() {
     console.time('userData-parallel');
-
+    let userProfilePostsData = await Promise.all([getUserProfile('user1'), getUserPosts('user1')]);
+    console.log(`Name : ${userProfilePostsData[0].name}`);
+    console.log(`Points : ${userProfilePostsData[0].points}`);
+    console.log(userProfilePostsData[1]);
     console.timeEnd('userData-parallel');
 }
 

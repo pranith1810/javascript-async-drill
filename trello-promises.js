@@ -135,8 +135,9 @@ getBoard()
   })
   .then((list) => {
     for (let index = 0; index < list.length; index++) {
-      if (list[index].id === 'qwsa221')
+      if (list[index].id === 'qwsa221') {
         return getCards(list[index].id);
+      }
     }
   })
   .then((cards) => {
@@ -154,8 +155,9 @@ getBoard()
   .then((list) => {
     let promises = [];
     for (let index = 0; index < list.length; index++) {
-      if (list[index].id === 'qwsa221' || list[index].id === 'jwkh245')
+      if (list[index].id === 'qwsa221' || list[index].id === 'jwkh245') {
         promises.push(getCards(list[index].id));
+      }
     }
     return Promise.all(promises);
   })
