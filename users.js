@@ -40,13 +40,18 @@ function getUserPosts(userId) {
  */
 
 async function userDataSerial() {
-    console.time('userData-serial');
-    let userProfileData = await getUserProfile('user1');
-    console.log(`Name : ${userProfileData.name}`);
-    console.log(`Points : ${userProfileData.points}`);
-    let userPostsData = await getUserPosts('user1');
-    console.log(userPostsData);
-    console.timeEnd('userData-serial');
+    try {
+        console.time('userData-serial');
+        let userProfileData = await getUserProfile('user1');
+        console.log(`Name : ${userProfileData.name}`);
+        console.log(`Points : ${userProfileData.points}`);
+        let userPostsData = await getUserPosts('user1');
+        console.log(userPostsData);
+        console.timeEnd('userData-serial');
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 /**
@@ -54,12 +59,17 @@ async function userDataSerial() {
  */
 
 async function userDataParallel() {
-    console.time('userData-parallel');
-    let userProfilePostsData = await Promise.all([getUserProfile('user1'), getUserPosts('user1')]);
-    console.log(`Name : ${userProfilePostsData[0].name}`);
-    console.log(`Points : ${userProfilePostsData[0].points}`);
-    console.log(userProfilePostsData[1]);
-    console.timeEnd('userData-parallel');
+    try {
+        console.time('userData-parallel');
+        let userProfilePostsData = await Promise.all([getUserProfile('user1'), getUserPosts('user1')]);
+        console.log(`Name : ${userProfilePostsData[0].name}`);
+        console.log(`Points : ${userProfilePostsData[0].points}`);
+        console.log(userProfilePostsData[1]);
+        console.timeEnd('userData-parallel');
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 userDataSerial();

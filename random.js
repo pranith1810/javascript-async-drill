@@ -133,13 +133,23 @@ Promise.all(promises)
 //Task 1 using async/await
 
 async function fetchRandNum() {
-    const randNum = await fetchRandomNumbersPromise();
-    console.log(randNum);
+    try {
+        const randNum = await fetchRandomNumbersPromise();
+        console.log(randNum);
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 async function fetchRandStr() {
-    const randStr = await fetchRandomStringPromise();
-    console.log(randStr);
+    try {
+        const randStr = await fetchRandomStringPromise();
+        console.log(randStr);
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 fetchRandNum();
@@ -149,13 +159,18 @@ fetchRandStr();
 //Task 2 using async/await
 
 async function sumOfRandNum() {
-    let sum = 0;
-    let randNum = await fetchRandomNumbersPromise();
-    sum = sum + randNum;
-    console.log(sum);
-    randNum = await fetchRandomNumbersPromise();
-    sum = sum + randNum;
-    console.log(sum);
+    try {
+        let sum = 0;
+        let randNum = await fetchRandomNumbersPromise();
+        sum = sum + randNum;
+        console.log(sum);
+        randNum = await fetchRandomNumbersPromise();
+        sum = sum + randNum;
+        console.log(sum);
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 sumOfRandNum();
@@ -163,8 +178,13 @@ sumOfRandNum();
 // Task 3 using async/await
 
 async function concatRandNumStr() {
-    let randNumStrArray = await Promise.all([fetchRandomNumbersPromise(), fetchRandomStringPromise()]);
-    console.log(randNumStrArray[0] + randNumStrArray[1]);
+    try {
+        let randNumStrArray = await Promise.all([fetchRandomNumbersPromise(), fetchRandomStringPromise()]);
+        console.log(randNumStrArray[0] + randNumStrArray[1]);
+    }
+    catch (error) {
+        console.error(error);
+    }
 }
 
 concatRandNumStr();
@@ -172,20 +192,25 @@ concatRandNumStr();
 // Task 4 using async/await
 
 async function sumOfTenRandNumbers() {
-    let promises = []
-    let sum = 0;
+    try {
+        let promises = []
+        let sum = 0;
 
-    for (let index = 0; index < 10; index++) {
-        promises.push(fetchRandomNumbersPromise());
+        for (let index = 0; index < 10; index++) {
+            promises.push(fetchRandomNumbersPromise());
+        }
+
+        let sumOfEach = await Promise.all(promises);
+
+        for (let index = 0; index < 10; index++) {
+            sum = sum + sumOfEach[index];
+        }
+
+        console.log(sum);
     }
-
-    let sumOfEach = await Promise.all(promises);
-
-    for (let index = 0; index < 10; index++) {
-        sum = sum + sumOfEach[index];
+    catch (error) {
+        console.error(error);
     }
-
-    console.log(sum);
 }
 
 sumOfTenRandNumbers();
