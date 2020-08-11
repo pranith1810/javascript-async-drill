@@ -7,7 +7,7 @@ function fetchRandomNumbers(callback) {
     }, (Math.floor(Math.random() * (5)) + 1) * 1000);
 }
 
-function fetchRandomString() {
+function fetchRandomString(callback) {
     console.log('Fetching string...');
     setTimeout(() => {
         let result = '';
